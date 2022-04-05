@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public enum BuilderCertificationCode {
+enum BuilderCertificationCode {
     TYPE_CERTIFICATED(0),
     NOT_TYPE_CERTIFICATED(1),
     LIGHT_SPORT(2);

@@ -1,7 +1,24 @@
+import com.google.common.base.Strings;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public enum AircraftEngineType {
+/**
+ * Type Engine
+ * 0 - None
+ * 1 - Reciprocating
+ * 2 - Turbo-prop
+ * 3 - Turbo-shaft
+ * 4 - Turbo-jet
+ * 5 - Turbo-fan
+ * 6 – Ramjet
+ * 7 - 2 Cycle
+ * 8 - 4 Cycle
+ * 9 – Unknown
+ * 10 – Electric
+ * 11 - Rotary
+ */
+enum AircraftEngineType {
     NONE(0),
     RECIPROCATING(1),
     TURBO_PROP(2),
@@ -37,7 +54,10 @@ public enum AircraftEngineType {
     }
 
     public static AircraftEngineType getType(String refNumber) {
-        refNumber = refNumber.replaceAll("\\s","");
+        refNumber = refNumber.replaceAll("\\s", "");
+        if (Strings.isNullOrEmpty(refNumber)) {
+            return AircraftEngineType.NONE;
+        }
         return ENGINE_TYPES.get(Integer.parseInt(refNumber));
     }
 }

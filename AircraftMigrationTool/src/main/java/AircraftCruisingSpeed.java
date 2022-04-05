@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public enum AircraftCruisingSpeed {
+enum AircraftCruisingSpeed {
     UP_TO_12_499(1),
     BETWEEN_12_500_AND_19_999(2),
     BETWEEN_20_000_AND_OVER(3),

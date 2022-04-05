@@ -1,4 +1,5 @@
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -7,6 +8,7 @@ import lombok.ToString;
  */
 @Builder
 @ToString
+@EqualsAndHashCode
 class AircraftRef {
     /**
      * A code assigned to the aircraft manufacturer, model and series.

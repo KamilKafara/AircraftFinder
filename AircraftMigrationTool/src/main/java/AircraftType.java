@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public enum AircraftType {
+enum AircraftType {
     GLIDER("1"),
     BALLOON("2"),
     BLIMP_DIRIGIBLE("3"),

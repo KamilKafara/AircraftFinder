@@ -1,5 +1,4 @@
-public enum ReleasableAircraftType {
-
+enum ReleasableAircraftType {
     ACFTREF("ACFTREF.txt"),
     DEALER("DEALER.txt"),
     DEREG("DEREG.txt"),

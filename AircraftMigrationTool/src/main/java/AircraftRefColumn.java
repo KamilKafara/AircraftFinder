@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public enum AircraftRefColumn {
+enum AircraftRefColumn {
     CODE(0),
     MANUFACTURE(1),
     MODEL(2),
@@ -16,25 +16,25 @@ public enum AircraftRefColumn {
     TYPE_CERTIFICATE_DATA_SHEET(11),
     TYPE_CERTIFICATE_DATA_HOLDER(12);
 
-    private final int index;
-    private static final Map<String, AircraftRefColumn> AIRCRAFT_REF_COLUMN = new HashMap<>();
+    private final int refNumber;
+    private static final Map<String, AircraftRefColumn> AIRCRAFT_REF_NUMBER = new HashMap<>();
 
     static {
         for (AircraftRefColumn refColumn : values()) {
-            AIRCRAFT_REF_COLUMN.put(String.valueOf(refColumn.getIndex()), refColumn);
+            AIRCRAFT_REF_NUMBER.put(String.valueOf(refColumn.getRefNumber()), refColumn);
         }
     }
 
-    AircraftRefColumn(int index) {
-        this.index = index;
+    AircraftRefColumn(int refNumber) {
+        this.refNumber = refNumber;
     }
 
-    public int getIndex() {
-        return index;
+    public int getRefNumber() {
+        return refNumber;
     }
 
-    public static int indexOfLabel(AircraftRefColumn label) {
-        return AIRCRAFT_REF_COLUMN.get(label).getIndex();
+    public static int getRefNumber(AircraftRefColumn label) {
+        return AIRCRAFT_REF_NUMBER.get(label).getRefNumber();
     }
 
 }

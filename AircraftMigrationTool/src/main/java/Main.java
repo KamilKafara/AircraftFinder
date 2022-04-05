@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 class Main {
@@ -13,38 +14,26 @@ class Main {
 
     public static void main(String[] args) {
         Stopwatch stopWatchStream = Stopwatch.createStarted();
-        var streamReader = readFileByJavaStream();
+        ReleasableAircraftType releasableAircraftType = ReleasableAircraftType.ACFTREF;
+        List results = readFileByJavaStream(releasableAircraftType);
         System.out.println("Stop : " + stopWatchStream);
+        System.out.println("Size : " + results.size());
     }
 
-    private static List<AircraftRef> readFileByJavaStream() {
-        Path file = Path.of(PATH + ReleasableAircraftType.ACFTREF.getFilename());
-        List<AircraftRef> aircraftRefList = Lists.newArrayList();
-        ReleasableAircraftType releasableAircraftType = ReleasableAircraftType.ACFTREF;
+    private static List readFileByJavaStream(ReleasableAircraftType releasableAircraftType) {
+        Path file = Path.of(PATH + releasableAircraftType.getFilename());
         try (Stream<String> lines = Files.lines(file).skip(SKIP_VALUE)) {
             switch (releasableAircraftType) {
                 case ACFTREF -> {
-                    lines.forEach(record -> {
-                        aircraftRefList.add(AircraftRefParser.parseAircraftRefRecord(record));
-                    });
-                }
-                case DEALER -> {
-                    break;
-                }
-                case DEREG -> {
-                    break;
+                    return parseAircraftRef(lines);
                 }
                 case DOCINDEX -> {
-                    break;
+                    return parseDocIndexRefs(lines);
                 }
                 case ENGINE -> {
-                    break;
+                    return parseEngineRefs(lines);
                 }
-                case MASTER -> {
-                    break;
-                }
-                case RESERVED -> {
-                    break;
+                case DEALER, MASTER, DEREG, RESERVED -> {
                 }
                 default -> {
                     System.out.println("not found any releasable ");
@@ -54,7 +43,20 @@ class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return aircraftRefList;
+        return Lists.newArrayList();
     }
+
+    private static List<Object> parseAircraftRef(Stream<String> lines) {
+        return lines.map(AircraftRefParser::parseRecord).collect(Collectors.toList());
+    }
+
+    private static List<EngineRef> parseEngineRefs(Stream<String> lines) {
+        return lines.map(EngineRefParser::parseRecord).collect(Collectors.toList());
+    }
+
+    private static List<DocIndexRef> parseDocIndexRefs(Stream<String> lines) {
+        return lines.map(DocIndexRefParser::parseRecord).collect(Collectors.toList());
+    }
+
 }
 

@@ -1,7 +1,9 @@
+import lombok.EqualsAndHashCode;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public enum AircraftCategoryCode {
+enum AircraftCategoryCode {
     LAND(1),
     SEA(2),
     AMPHIBIAN(3);
