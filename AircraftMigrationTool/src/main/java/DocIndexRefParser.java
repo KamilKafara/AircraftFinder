@@ -1,8 +1,4 @@
-import org.checkerframework.checker.units.qual.K;
-
-import java.util.List;
-
-class DocIndexRefParser{
+class DocIndexRefParser {
 
     public static DocIndexRef parseRecord(String record) {
         String[] recordArray = record.split(",");
@@ -23,6 +19,4 @@ class DocIndexRefParser{
         String value = recordArray[DocIndexRefColumn.TYPE.getRefNumber()];
         return TypeCollateral.getType(value);
     }
-
-
 }

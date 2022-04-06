@@ -19,14 +19,14 @@ enum AircraftRefColumn {
     private final int refNumber;
     private static final Map<String, AircraftRefColumn> AIRCRAFT_REF_NUMBER = new HashMap<>();
 
+    AircraftRefColumn(int refNumber) {
+        this.refNumber = refNumber;
+    }
+
     static {
         for (AircraftRefColumn refColumn : values()) {
             AIRCRAFT_REF_NUMBER.put(String.valueOf(refColumn.getRefNumber()), refColumn);
         }
-    }
-
-    AircraftRefColumn(int refNumber) {
-        this.refNumber = refNumber;
     }
 
     public int getRefNumber() {

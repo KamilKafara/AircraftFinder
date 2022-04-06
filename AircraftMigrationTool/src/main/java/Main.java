@@ -14,7 +14,7 @@ class Main {
 
     public static void main(String[] args) {
         Stopwatch stopWatchStream = Stopwatch.createStarted();
-        ReleasableAircraftType releasableAircraftType = ReleasableAircraftType.ACFTREF;
+        ReleasableAircraftType releasableAircraftType = ReleasableAircraftType.RESERVED;
         List results = readFileByJavaStream(releasableAircraftType);
         System.out.println("Stop : " + stopWatchStream);
         System.out.println("Size : " + results.size());
@@ -33,7 +33,10 @@ class Main {
                 case ENGINE -> {
                     return parseEngineRefs(lines);
                 }
-                case DEALER, MASTER, DEREG, RESERVED -> {
+                case RESERVED -> {
+                    return parseReservedRefs(lines);
+                }
+                case DEALER, MASTER, DEREG -> {
                 }
                 default -> {
                     System.out.println("not found any releasable ");
@@ -56,6 +59,10 @@ class Main {
 
     private static List<DocIndexRef> parseDocIndexRefs(Stream<String> lines) {
         return lines.map(DocIndexRefParser::parseRecord).collect(Collectors.toList());
+    }
+
+    private static List<ReservedRef> parseReservedRefs(Stream<String> lines) {
+        return lines.map(ReservedRefParser::parseRecord).collect(Collectors.toList());
     }
 
 }
