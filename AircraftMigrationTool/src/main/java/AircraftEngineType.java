@@ -1,5 +1,6 @@
 import com.google.common.base.Strings;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,9 +41,7 @@ enum AircraftEngineType {
     }
 
     static {
-        for (AircraftEngineType engineType : values()) {
-            ENGINE_TYPES.put(engineType.getRefNumber(), engineType);
-        }
+        Arrays.stream(values()).forEach(engineType -> ENGINE_TYPES.put(engineType.getRefNumber(), engineType));
     }
 
     public int getRefNumber() {

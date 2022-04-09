@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,9 +15,7 @@ enum BuilderCertificationCode {
     }
 
     static {
-        for (BuilderCertificationCode engineType : values()) {
-            BUILDER_CERTIFICATION_CODE_MAP.put(engineType.getRefNumber(), engineType);
-        }
+        Arrays.stream(values()).forEach(engineType -> BUILDER_CERTIFICATION_CODE_MAP.put(engineType.getRefNumber(), engineType));
     }
 
     public int getRefNumber() {

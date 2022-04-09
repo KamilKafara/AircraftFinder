@@ -14,16 +14,19 @@ class Main {
 
     public static void main(String[] args) {
         Stopwatch stopWatchStream = Stopwatch.createStarted();
-        ReleasableAircraftType releasableAircraftType = ReleasableAircraftType.RESERVED;
-        List results = readFileByJavaStream(releasableAircraftType);
+        System.out.println("Start : " + stopWatchStream);
+        long size = 0;
+        for (ReleasableAircraftDocumentType type : ReleasableAircraftDocumentType.values()) {
+            size = readFileByJavaStream(type).size() + size;
+        }
+        System.out.println("Size : " + size);
         System.out.println("Stop : " + stopWatchStream);
-        System.out.println("Size : " + results.size());
     }
 
-    private static List readFileByJavaStream(ReleasableAircraftType releasableAircraftType) {
-        Path file = Path.of(PATH + releasableAircraftType.getFilename());
+    private static List readFileByJavaStream(ReleasableAircraftDocumentType releasableAircraftDocumentType) {
+        Path file = Path.of(PATH + releasableAircraftDocumentType.getFilename());
         try (Stream<String> lines = Files.lines(file).skip(SKIP_VALUE)) {
-            switch (releasableAircraftType) {
+            switch (releasableAircraftDocumentType) {
                 case ACFTREF -> {
                     return parseAircraftRef(lines);
                 }
@@ -36,7 +39,14 @@ class Main {
                 case RESERVED -> {
                     return parseReservedRefs(lines);
                 }
-                case DEALER, MASTER, DEREG -> {
+                case DEALER -> {
+                    return parseDealerRefs(lines);
+                }
+                case MASTER -> {
+                    return parseMasterRefs(lines);
+                }
+                case DEREG -> {
+                    return parseDeregRefs(lines);
                 }
                 default -> {
                     System.out.println("not found any releasable ");
@@ -48,6 +58,7 @@ class Main {
         }
         return Lists.newArrayList();
     }
+
 
     private static List<Object> parseAircraftRef(Stream<String> lines) {
         return lines.map(AircraftRefParser::parseRecord).collect(Collectors.toList());
@@ -65,5 +76,16 @@ class Main {
         return lines.map(ReservedRefParser::parseRecord).collect(Collectors.toList());
     }
 
+    private static List<DealerRef> parseDealerRefs(Stream<String> lines) {
+        return lines.map(DealerRefParser::parseRecord).collect(Collectors.toList());
+    }
+
+    private static List<MasterRef> parseMasterRefs(Stream<String> lines) {
+        return lines.map(MasterRefParser::parseRecord).collect(Collectors.toList());
+    }
+
+    private static List<DeregRef> parseDeregRefs(Stream<String> lines) {
+        return lines.map(DeregRefParser::parseRecord).collect(Collectors.toList());
+    }
 }
 

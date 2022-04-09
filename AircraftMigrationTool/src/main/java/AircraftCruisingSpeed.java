@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,9 +16,7 @@ enum AircraftCruisingSpeed {
     }
 
     static {
-        for (AircraftCruisingSpeed engineType : values()) {
-            CRUISING_SPEED_MAP.put(engineType.getRefNumber(), engineType);
-        }
+        Arrays.stream(values()).forEach(engineType -> CRUISING_SPEED_MAP.put(engineType.getRefNumber(), engineType));
     }
 
     public int getRefNumber() {

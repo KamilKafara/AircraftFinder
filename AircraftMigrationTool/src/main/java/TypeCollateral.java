@@ -1,7 +1,8 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum TypeCollateral {
+enum TypeCollateral {
     AIRCRAFT(1),
     ENGINE(2),
     PROPELLER(3),
@@ -17,9 +18,7 @@ public enum TypeCollateral {
     }
 
     static {
-        for (TypeCollateral refColumn : values()) {
-            COLLATERAL_TYPE_MAP.put(String.valueOf(refColumn.getRefNumber()), refColumn);
-        }
+        Arrays.stream(values()).forEach(refColumn -> COLLATERAL_TYPE_MAP.put(String.valueOf(refColumn.getRefNumber()), refColumn));
     }
 
 

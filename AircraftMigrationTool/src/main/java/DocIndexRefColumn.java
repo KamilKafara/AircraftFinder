@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,9 +17,7 @@ enum DocIndexRefColumn {
     private static final Map<String, DocIndexRefColumn> DOC_INDEX_REF_COLUMN_MAP = new HashMap<>();
 
     static {
-        for (DocIndexRefColumn refColumn : values()) {
-            DOC_INDEX_REF_COLUMN_MAP.put(String.valueOf(refColumn.getRefNumber()), refColumn);
-        }
+        Arrays.stream(values()).forEach(refColumn -> DOC_INDEX_REF_COLUMN_MAP.put(String.valueOf(refColumn.getRefNumber()), refColumn));
     }
 
     DocIndexRefColumn(int refNumber) {

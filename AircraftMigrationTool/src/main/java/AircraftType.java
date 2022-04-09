@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,9 +19,7 @@ enum AircraftType {
     private static final Map<String, AircraftType> AIRCRAFT_TYPE_MAP = new HashMap<>();
 
     static {
-        for (AircraftType aircraftType : values()) {
-            AIRCRAFT_TYPE_MAP.put(String.valueOf(aircraftType.getRefNumber()), aircraftType);
-        }
+        Arrays.stream(values()).forEach(aircraftType -> AIRCRAFT_TYPE_MAP.put(String.valueOf(aircraftType.getRefNumber()), aircraftType));
     }
 
     AircraftType(String refNumber) {

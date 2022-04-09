@@ -1,4 +1,4 @@
-public class EngineRefParser {
+class EngineRefParser {
     static EngineRef parseRecord(String record) {
         String[] recordArray = record.split(",");
         EngineRef.EngineRefBuilder engineRef = new EngineRef.EngineRefBuilder()

@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,9 +18,7 @@ enum EngineRefColumn {
     }
 
     static {
-        for (EngineRefColumn refColumn : values()) {
-            ENGINE_REF_NUMBER.put(String.valueOf(refColumn.getRefNumber()), refColumn);
-        }
+        Arrays.stream(values()).forEach(refColumn -> ENGINE_REF_NUMBER.put(String.valueOf(refColumn.getRefNumber()), refColumn));
     }
 
     public int getRefNumber() {

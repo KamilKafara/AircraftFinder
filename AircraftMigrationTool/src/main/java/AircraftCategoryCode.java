@@ -1,5 +1,4 @@
-import lombok.EqualsAndHashCode;
-
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,12 +12,11 @@ enum AircraftCategoryCode {
     AircraftCategoryCode(int refNumber) {
         this.refNumber = refNumber;
     }
+
     private static final Map<String, AircraftCategoryCode> AIRCRAFT_CATEGORY_CODES = new HashMap<>();
 
     static {
-        for (AircraftCategoryCode categoryCode : values()) {
-            AIRCRAFT_CATEGORY_CODES.put(String.valueOf(categoryCode.getCodeName()), categoryCode);
-        }
+        Arrays.stream(values()).forEach(categoryCode -> AIRCRAFT_CATEGORY_CODES.put(String.valueOf(categoryCode.getCodeName()), categoryCode));
     }
 
     public int getCodeName() {

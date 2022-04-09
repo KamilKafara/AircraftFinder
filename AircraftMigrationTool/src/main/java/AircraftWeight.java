@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,9 +16,7 @@ enum AircraftWeight {
     }
 
     static {
-        for (AircraftWeight enginaircraftWeightType : values()) {
-            AIRCRAFT_WEIGHT_MAP.put(enginaircraftWeightType.getRefNumber(), enginaircraftWeightType);
-        }
+        Arrays.stream(values()).forEach(aircraftWeight -> AIRCRAFT_WEIGHT_MAP.put(aircraftWeight.getRefNumber(), aircraftWeight));
     }
 
     public int getRefNumber() {

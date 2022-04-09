@@ -1,4 +1,4 @@
-enum ReleasableAircraftType {
+enum ReleasableAircraftDocumentType {
     ACFTREF("ACFTREF.txt"),
     DEALER("DEALER.txt"),
     DEREG("DEREG.txt"),
@@ -9,7 +9,7 @@ enum ReleasableAircraftType {
 
     private final String filename;
 
-    ReleasableAircraftType(String filename) {
+    ReleasableAircraftDocumentType(String filename) {
         this.filename = filename;
     }
 

@@ -1,7 +1,6 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
-
 
 enum ReservedRefColumn {
     N_NUMBER(0),
@@ -25,9 +24,7 @@ enum ReservedRefColumn {
     }
 
     static {
-        for (ReservedRefColumn refColumn : values()) {
-            RESERVED_MAP.put(String.valueOf(refColumn.getRefNumber()), refColumn);
-        }
+        Arrays.stream(values()).forEach(refColumn -> RESERVED_MAP.put(String.valueOf(refColumn.getRefNumber()), refColumn));
     }
 
     public int getRefNumber() {

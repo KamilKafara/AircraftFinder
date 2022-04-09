@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,9 +25,7 @@ enum AircraftRefColumn {
     }
 
     static {
-        for (AircraftRefColumn refColumn : values()) {
-            AIRCRAFT_REF_NUMBER.put(String.valueOf(refColumn.getRefNumber()), refColumn);
-        }
+        Arrays.stream(values()).forEach(refColumn -> AIRCRAFT_REF_NUMBER.put(String.valueOf(refColumn.getRefNumber()), refColumn));
     }
 
     public int getRefNumber() {
