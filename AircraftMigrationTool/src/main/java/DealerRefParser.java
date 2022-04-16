@@ -1,6 +1,18 @@
-class DealerRefParser {
-    static DealerRef parseRecord(String record) {
-        String[] recordArray = record.split(",");
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+class DealerRefParser implements RecordParser {
+
+    public static List<DealerRef> parseDealerRefs(Stream<String> lines) {
+        return lines.map(DealerRefParser::parseRecord).collect(Collectors.toList());
+    }
+
+    private static DealerRef parseRecord(String record) {
+        String[] recordArray = record.split(SEPARATOR);
 
         DealerRef.DealerRefBuilder dealerRefBuilder = new DealerRef.DealerRefBuilder()
                 .certificateNumber(recordArray[DealerRefColumn.CERTIFICATE_NUMBER.getRefNumber()])
@@ -16,32 +28,7 @@ class DealerRefParser {
                 .state(recordArray[DealerRefColumn.STATE_ABBREV.getRefNumber()])
                 .zipCode(recordArray[DealerRefColumn.ZIP_CODE.getRefNumber()])
                 .otherNamesCount(recordArray[DealerRefColumn.OTHER_NAMES_COUNT.getRefNumber()])
-                //todo: otherName parse to map
-                .otherName1(recordArray[DealerRefColumn.OTHER_NAMES_1.getRefNumber()])
-                .otherName2(recordArray[DealerRefColumn.OTHER_NAMES_2.getRefNumber()])
-                .otherName3(recordArray[DealerRefColumn.OTHER_NAMES_3.getRefNumber()])
-                .otherName4(recordArray[DealerRefColumn.OTHER_NAMES_4.getRefNumber()])
-                .otherName5(recordArray[DealerRefColumn.OTHER_NAMES_5.getRefNumber()])
-                .otherName6(recordArray[DealerRefColumn.OTHER_NAMES_6.getRefNumber()])
-                .otherName7(recordArray[DealerRefColumn.OTHER_NAMES_7.getRefNumber()])
-                .otherName8(recordArray[DealerRefColumn.OTHER_NAMES_8.getRefNumber()])
-                .otherName9(recordArray[DealerRefColumn.OTHER_NAMES_9.getRefNumber()])
-                .otherName10(recordArray[DealerRefColumn.OTHER_NAMES_10.getRefNumber()])
-                .otherName11(recordArray[DealerRefColumn.OTHER_NAMES_11.getRefNumber()])
-                .otherName12(recordArray[DealerRefColumn.OTHER_NAMES_12.getRefNumber()])
-                .otherName13(recordArray[DealerRefColumn.OTHER_NAMES_13.getRefNumber()])
-                .otherName14(recordArray[DealerRefColumn.OTHER_NAMES_14.getRefNumber()])
-                .otherName15(recordArray[DealerRefColumn.OTHER_NAMES_15.getRefNumber()])
-                .otherName16(recordArray[DealerRefColumn.OTHER_NAMES_16.getRefNumber()])
-                .otherName17(recordArray[DealerRefColumn.OTHER_NAMES_17.getRefNumber()])
-                .otherName18(recordArray[DealerRefColumn.OTHER_NAMES_18.getRefNumber()])
-                .otherName19(recordArray[DealerRefColumn.OTHER_NAMES_19.getRefNumber()])
-                .otherName20(recordArray[DealerRefColumn.OTHER_NAMES_20.getRefNumber()])
-                .otherName21(recordArray[DealerRefColumn.OTHER_NAMES_21.getRefNumber()])
-                .otherName22(recordArray[DealerRefColumn.OTHER_NAMES_22.getRefNumber()])
-                .otherName23(recordArray[DealerRefColumn.OTHER_NAMES_23.getRefNumber()])
-                .otherName24(recordArray[DealerRefColumn.OTHER_NAMES_24.getRefNumber()])
-                .otherName25(recordArray[DealerRefColumn.OTHER_NAMES_25.getRefNumber()]);
+                .otherNames(getOtherNames(recordArray));
         return dealerRefBuilder.build();
     }
 
@@ -50,5 +37,31 @@ class DealerRefParser {
         return Ownership.getType(value);
     }
 
-
+    private static List<String> getOtherNames(String[] recordArray) {
+        return Lists.newArrayList(recordArray[DealerRefColumn.OTHER_NAMES_1.getRefNumber()],
+                recordArray[DealerRefColumn.OTHER_NAMES_2.getRefNumber()],
+                recordArray[DealerRefColumn.OTHER_NAMES_3.getRefNumber()],
+                recordArray[DealerRefColumn.OTHER_NAMES_4.getRefNumber()],
+                recordArray[DealerRefColumn.OTHER_NAMES_5.getRefNumber()],
+                recordArray[DealerRefColumn.OTHER_NAMES_6.getRefNumber()],
+                recordArray[DealerRefColumn.OTHER_NAMES_7.getRefNumber()],
+                recordArray[DealerRefColumn.OTHER_NAMES_8.getRefNumber()],
+                recordArray[DealerRefColumn.OTHER_NAMES_9.getRefNumber()],
+                recordArray[DealerRefColumn.OTHER_NAMES_10.getRefNumber()],
+                recordArray[DealerRefColumn.OTHER_NAMES_11.getRefNumber()],
+                recordArray[DealerRefColumn.OTHER_NAMES_12.getRefNumber()],
+                recordArray[DealerRefColumn.OTHER_NAMES_13.getRefNumber()],
+                recordArray[DealerRefColumn.OTHER_NAMES_14.getRefNumber()],
+                recordArray[DealerRefColumn.OTHER_NAMES_15.getRefNumber()],
+                recordArray[DealerRefColumn.OTHER_NAMES_16.getRefNumber()],
+                recordArray[DealerRefColumn.OTHER_NAMES_17.getRefNumber()],
+                recordArray[DealerRefColumn.OTHER_NAMES_18.getRefNumber()],
+                recordArray[DealerRefColumn.OTHER_NAMES_19.getRefNumber()],
+                recordArray[DealerRefColumn.OTHER_NAMES_20.getRefNumber()],
+                recordArray[DealerRefColumn.OTHER_NAMES_21.getRefNumber()],
+                recordArray[DealerRefColumn.OTHER_NAMES_22.getRefNumber()],
+                recordArray[DealerRefColumn.OTHER_NAMES_23.getRefNumber()],
+                recordArray[DealerRefColumn.OTHER_NAMES_24.getRefNumber()],
+                recordArray[DealerRefColumn.OTHER_NAMES_25.getRefNumber()]);
+    }
 }

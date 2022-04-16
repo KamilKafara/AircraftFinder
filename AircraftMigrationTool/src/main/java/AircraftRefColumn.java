@@ -35,6 +35,4 @@ enum AircraftRefColumn {
     public static int getRefNumber(AircraftRefColumn label) {
         return AIRCRAFT_REF_NUMBER.get(label).getRefNumber();
     }
-
 }
-

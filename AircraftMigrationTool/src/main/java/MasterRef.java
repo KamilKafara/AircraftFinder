@@ -2,6 +2,8 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.util.List;
+
 /**
  * AIRCRAFT REGISTRATION MASTER FILE
  *
@@ -35,11 +37,7 @@ class MasterRef {
     private String modelSCode;
     private String fractionalOwnership;
     private String airworthinessDate;
-    private String otherName1;
-    private String otherName2;
-    private String otherName3;
-    private String otherName4;
-    private String otherName5;
+    private List<String> otherNames;
     private String expirationDate;
     private String uniqueId;
     private String kitMfr;

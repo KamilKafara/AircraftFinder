@@ -20,7 +20,6 @@ class DocIndexRef {
      * 9 - Unidentified
      */
     private TypeCollateral typeCollateral;
-    //TODO
     /**
      * Contents are based on type collateral
      * code, as follows:

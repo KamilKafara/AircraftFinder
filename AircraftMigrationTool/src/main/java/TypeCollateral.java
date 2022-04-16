@@ -21,7 +21,6 @@ enum TypeCollateral {
         Arrays.stream(values()).forEach(refColumn -> COLLATERAL_TYPE_MAP.put(String.valueOf(refColumn.getRefNumber()), refColumn));
     }
 
-
     public int getRefNumber() {
         return refNumber;
     }
@@ -29,5 +28,4 @@ enum TypeCollateral {
     public static TypeCollateral getType(String refNumber) {
         return COLLATERAL_TYPE_MAP.get(refNumber);
     }
-
 }

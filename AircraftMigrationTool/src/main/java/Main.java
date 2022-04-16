@@ -4,88 +4,67 @@ import com.google.common.collect.Lists;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 import java.util.stream.Stream;
 
 class Main {
     private static final String PATH = "C:\\JavaProjects\\AircraftFinder\\AircraftMigrationTool\\target\\classes\\ReleasableAircraft.2021\\";
     private static final int SKIP_VALUE = 1;
+    private static Map<ReleasableAircraftDocumentType, List<?>> types = new HashMap<>();
 
     public static void main(String[] args) {
         Stopwatch stopWatchStream = Stopwatch.createStarted();
         System.out.println("Start : " + stopWatchStream);
-        long size = 0;
         for (ReleasableAircraftDocumentType type : ReleasableAircraftDocumentType.values()) {
-            size = readFileByJavaStream(type).size() + size;
+            types.put(type, readFileByDocumentType(type));
         }
-        System.out.println("Size : " + size);
         System.out.println("Stop : " + stopWatchStream);
     }
 
-    private static List readFileByJavaStream(ReleasableAircraftDocumentType releasableAircraftDocumentType) {
+    public static List<?> readFileByDocumentType(ReleasableAircraftDocumentType releasableAircraftDocumentType) {
         Path file = Path.of(PATH + releasableAircraftDocumentType.getFilename());
+        Stopwatch stopWatchStream = Stopwatch.createStarted();
+        List<?> result = Lists.newArrayList();
         try (Stream<String> lines = Files.lines(file).skip(SKIP_VALUE)) {
             switch (releasableAircraftDocumentType) {
                 case ACFTREF -> {
-                    return parseAircraftRef(lines);
+                    result = AircraftRefParser.parseAircraftRef(lines);
                 }
                 case DOCINDEX -> {
-                    return parseDocIndexRefs(lines);
+                    result = DocIndexRefParser.parseDocIndexRefs(lines);
                 }
                 case ENGINE -> {
-                    return parseEngineRefs(lines);
+                    result = EngineRefParser.parseEngineRefs(lines);
                 }
                 case RESERVED -> {
-                    return parseReservedRefs(lines);
+                    result = ReservedRefParser.parseReservedRefs(lines);
                 }
                 case DEALER -> {
-                    return parseDealerRefs(lines);
+                    result = DealerRefParser.parseDealerRefs(lines);
                 }
                 case MASTER -> {
-                    return parseMasterRefs(lines);
+                    result = MasterRefParser.parseMasterRefs(lines);
                 }
                 case DEREG -> {
-                    return parseDeregRefs(lines);
+                    result = DeregRefParser.parseDeregRefs(lines);
                 }
                 default -> {
-                    System.out.println("not found any releasable ");
+                    System.out.println("not found any releasable document");
+                    return result;
                 }
             }
+            System.out.println("Stop: " + stopWatchStream + " type: " + releasableAircraftDocumentType + " size: " + result.size());
 
+            return result;
         } catch (IOException e) {
             e.printStackTrace();
         }
         return Lists.newArrayList();
     }
 
-
-    private static List<Object> parseAircraftRef(Stream<String> lines) {
-        return lines.map(AircraftRefParser::parseRecord).collect(Collectors.toList());
-    }
-
-    private static List<EngineRef> parseEngineRefs(Stream<String> lines) {
-        return lines.map(EngineRefParser::parseRecord).collect(Collectors.toList());
-    }
-
-    private static List<DocIndexRef> parseDocIndexRefs(Stream<String> lines) {
-        return lines.map(DocIndexRefParser::parseRecord).collect(Collectors.toList());
-    }
-
-    private static List<ReservedRef> parseReservedRefs(Stream<String> lines) {
-        return lines.map(ReservedRefParser::parseRecord).collect(Collectors.toList());
-    }
-
-    private static List<DealerRef> parseDealerRefs(Stream<String> lines) {
-        return lines.map(DealerRefParser::parseRecord).collect(Collectors.toList());
-    }
-
-    private static List<MasterRef> parseMasterRefs(Stream<String> lines) {
-        return lines.map(MasterRefParser::parseRecord).collect(Collectors.toList());
-    }
-
-    private static List<DeregRef> parseDeregRefs(Stream<String> lines) {
-        return lines.map(DeregRefParser::parseRecord).collect(Collectors.toList());
+    public static Map<ReleasableAircraftDocumentType, List<?>> getTypes() {
+        return types;
     }
 }
-

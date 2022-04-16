@@ -1,7 +1,14 @@
-class ReservedRefParser {
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+class ReservedRefParser implements RecordParser {
+    public static List<ReservedRef> parseReservedRefs(Stream<String> lines) {
+        return lines.map(ReservedRefParser::parseRecord).collect(Collectors.toList());
+    }
 
     public static ReservedRef parseRecord(String record) {
-        String[] recordArray = record.split(",");
+        String[] recordArray = record.split(SEPARATOR);
 
         ReservedRef.ReservedRefBuilder reservedRef = new ReservedRef.ReservedRefBuilder()
                 .nNumber(recordArray[ReservedRefColumn.N_NUMBER.getRefNumber()])

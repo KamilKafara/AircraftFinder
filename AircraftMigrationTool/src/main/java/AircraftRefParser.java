@@ -1,7 +1,15 @@
-class AircraftRefParser {
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-    static AircraftRef parseRecord(String record) {
-        String[] recordArray = record.split(",");
+class AircraftRefParser implements RecordParser {
+
+    public static List<AircraftRef> parseAircraftRef(Stream<String> lines) {
+        return lines.map(AircraftRefParser::parseRecord).collect(Collectors.toList());
+    }
+
+    private static AircraftRef parseRecord(String record) {
+        String[] recordArray = record.split(SEPARATOR);
         AircraftRef.AircraftRefBuilder aircraftRef = new AircraftRef.AircraftRefBuilder()
                 .code(recordArray[AircraftRefColumn.CODE.getRefNumber()])
                 .manufacture(recordArray[AircraftRefColumn.MANUFACTURE.getRefNumber()])
@@ -52,5 +60,4 @@ class AircraftRefParser {
                 .replaceAll("\\s", "");
         return AircraftCruisingSpeed.getType(value);
     }
-
 }

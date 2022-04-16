@@ -1,7 +1,15 @@
-class DocIndexRefParser {
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-    public static DocIndexRef parseRecord(String record) {
-        String[] recordArray = record.split(",");
+class DocIndexRefParser implements RecordParser  {
+
+    public static List<DocIndexRef> parseDocIndexRefs(Stream<String> lines) {
+        return lines.map(DocIndexRefParser::parseRecord).collect(Collectors.toList());
+    }
+
+    private static DocIndexRef parseRecord(String record) {
+        String[] recordArray = record.split(SEPARATOR);
         DocIndexRef.DocIndexRefBuilder aircraftRef = new DocIndexRef.DocIndexRefBuilder()
                 .typeCollateral(getTypeCollateral(recordArray))
                 .collateral(recordArray[DocIndexRefColumn.COLLATERAL.getRefNumber()])

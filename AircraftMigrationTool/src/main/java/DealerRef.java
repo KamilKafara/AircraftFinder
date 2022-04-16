@@ -2,6 +2,8 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.util.List;
+
 /**
  * AIRCRAFT DEALER APPLICANT FILE
  * This file contains aircraft dealers and aircraft manufacturers who have made application for Dealer's
@@ -57,8 +59,7 @@ class DealerRef {
      */
     private String street1Address;
     /**
-     * 2
-     * nd mailing street address for applicant
+     * 2'nd mailing street address for applicant
      */
     private String street2Address;
     /**
@@ -81,30 +82,5 @@ class DealerRef {
     /**
      * 1'st co-owner or partnership name
      */
-    private String otherName1;
-    private String otherName2;
-    private String otherName3;
-    private String otherName4;
-    private String otherName5;
-    private String otherName6;
-    private String otherName7;
-    private String otherName8;
-    private String otherName9;
-    private String otherName10;
-    private String otherName11;
-    private String otherName12;
-    private String otherName13;
-    private String otherName14;
-    private String otherName15;
-    private String otherName16;
-    private String otherName17;
-    private String otherName18;
-    private String otherName19;
-    private String otherName20;
-    private String otherName21;
-    private String otherName22;
-    private String otherName23;
-    private String otherName24;
-    private String otherName25;
-    private String otherName26;
+    private List<String> otherNames;
 }

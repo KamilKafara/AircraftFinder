@@ -1,7 +1,17 @@
-class DeregRefParser {
+import com.google.common.collect.Lists;
 
-    public static DeregRef parseRecord(String record) {
-        String[] recordArray = record.split(",");
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+class DeregRefParser implements RecordParser {
+
+    public static List<DeregRef> parseDeregRefs(Stream<String> lines) {
+        return lines.map(DeregRefParser::parseRecord).collect(Collectors.toList());
+    }
+
+    private static DeregRef parseRecord(String record) {
+        String[] recordArray = record.split(SEPARATOR);
 
         DeregRef.DeregRefBuilder refBuilder = new DeregRef.DeregRefBuilder()
                 .nNumber(recordArray[DeregRefColumn.N_NUMBER.getRefNumber()])
@@ -34,15 +44,19 @@ class DeregRefParser {
                 .zipCodePhysical(recordArray[DeregRefColumn.ZIP_CODE_PHYSICAL.getRefNumber()])
                 .countyPhysical(recordArray[DeregRefColumn.COUNTY_PHYSICAL.getRefNumber()])
                 .countryPhysical(recordArray[DeregRefColumn.COUNTRY_PHYSICAL.getRefNumber()])
-                .otherNames1(recordArray[DeregRefColumn.OTHER_NAMES_1.getRefNumber()])
-                .otherNames2(recordArray[DeregRefColumn.OTHER_NAMES_2.getRefNumber()])
-                .otherNames3(recordArray[DeregRefColumn.OTHER_NAMES_3.getRefNumber()])
-                .otherNames4(recordArray[DeregRefColumn.OTHER_NAMES_4.getRefNumber()])
-                .otherNames5(recordArray[DeregRefColumn.OTHER_NAMES_5.getRefNumber()])
+                .otherNames(getOtherNames(recordArray))
                 .kitMfr(recordArray[DeregRefColumn.KIT_MFR.getRefNumber()])
                 .kitModel(recordArray[DeregRefColumn.KIT_MODEL.getRefNumber()])
                 .modeSCodeHex(recordArray[DeregRefColumn.MODE_S_CODE_HEX.getRefNumber()]);
 
         return refBuilder.build();
+    }
+
+    private static List<String> getOtherNames(String[] recordArray) {
+        return Lists.newArrayList(recordArray[DeregRefColumn.OTHER_NAMES_1.getRefNumber()],
+                recordArray[DeregRefColumn.OTHER_NAMES_2.getRefNumber()],
+                recordArray[DeregRefColumn.OTHER_NAMES_3.getRefNumber()],
+                recordArray[DeregRefColumn.OTHER_NAMES_4.getRefNumber()],
+                recordArray[DeregRefColumn.OTHER_NAMES_5.getRefNumber()]);
     }
 }

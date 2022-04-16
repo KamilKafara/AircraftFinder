@@ -37,7 +37,4 @@ class EngineRef {
      * Thrust for engine types 4, 5, 6 in pounds
      */
     private String thrust;
-
-
 }
-

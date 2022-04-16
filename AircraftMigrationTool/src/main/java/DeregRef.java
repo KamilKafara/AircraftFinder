@@ -2,6 +2,8 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.util.List;
+
 /**
  * AIRCRAFT DEREGISTERED FILE
  * Contains the records of all U.S. Civil Aircraft Deregistered by the FAA, Civil Aviation Registry, Aircraft
@@ -257,23 +259,7 @@ class DeregRef {
     /**
      * t co-owner or partnership name
      */
-    private String otherNames1;
-    /**
-     * 2'nd co-owner or partnership name
-     */
-    private String otherNames2;
-    /**
-     * 3'nd co-owner or partnership name
-     */
-    private String otherNames3;
-    /**
-     * 4'nd co-owner or partnership name
-     */
-    private String otherNames4;
-    /**
-     * t co-owner or partnership name
-     */
-    private String otherNames5;
+    private List<String> otherNames;
     /**
      * Kit Manufacturer Name
      */

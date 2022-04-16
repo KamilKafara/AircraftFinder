@@ -31,5 +31,4 @@ enum ReservedRefColumn {
         return refNumber;
     }
 
-
 }
