@@ -12,13 +12,13 @@ import java.util.stream.Stream;
 class Main {
     private static final String PATH = "C:\\JavaProjects\\AircraftFinder\\AircraftMigrationTool\\target\\classes\\ReleasableAircraft.2021\\";
     private static final int SKIP_VALUE = 1;
-    private static Map<ReleasableAircraftDocumentType, List<?>> types = new HashMap<>();
+    private static final Map<ReleasableAircraftDocumentType, List<?>> TYPES = new HashMap<>();
 
     public static void main(String[] args) {
         Stopwatch stopWatchStream = Stopwatch.createStarted();
         System.out.println("Start : " + stopWatchStream);
         for (ReleasableAircraftDocumentType type : ReleasableAircraftDocumentType.values()) {
-            types.put(type, readFileByDocumentType(type));
+            TYPES.put(type, readFileByDocumentType(type));
         }
         System.out.println("Stop : " + stopWatchStream);
     }
@@ -64,7 +64,7 @@ class Main {
         return Lists.newArrayList();
     }
 
-    public static Map<ReleasableAircraftDocumentType, List<?>> getTypes() {
-        return types;
+    public static Map<ReleasableAircraftDocumentType, List<?>> getTYPES() {
+        return TYPES;
     }
 }
